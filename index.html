@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Thaumcraft Research Editor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Thaumcraft Research Editor</h1>
+        <p>Thaumcraft 4 Research Data Editing Tool</p>
+    </header>
+    <main>
+        <section>
+            <h2>Load CSV File</h2>
+            <input type="file" id="csvFileInput" accept=".csv">
+            <button id="loadCsvBtn">Load CSV</button>
+            <div id="csvStatus"></div>
+        </section>
+        <section>
+            <h2>Select Research</h2>
+            <div style="display: flex; gap: 1em; align-items: center;">
+                <select id="tabSelect">
+                    <option value="">-- Select Tab --</option>
+                </select>
+                <select id="researchSelect">
+                    <option value="">-- Select Research --</option>
+                </select>
+            </div>
+        </section>
+        <section id="editSection" style="display:none;">
+            <h2>Edit Research</h2>
+            <form id="researchForm">
+                <div class="form-group">
+                    <label for="key">Research ID (Key)</label>
+                    <input type="text" id="key" name="key" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="name">Research Name</label>
+                    <input type="text" id="name" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="tab">Research Tab</label>
+                    <select id="tabSelectEdit" name="tab"></select>
+                    <input type="text" id="tabInputEdit" name="tab" style="display:none; margin-top:0.5em;"
+                        placeholder="Enter custom tab">
+                </div>
+                <div class="form-group">
+                    <label for="parent">Parent Research</label>
+                    <input type="text" id="parent" name="parent" placeholder="例: THAUMIUM, NITOR">
+                </div>
+                <div class="form-group">
+                    <label for="hiddenParent">Hidden Parent Research</label>
+                    <input type="text" id="hiddenParent" name="hiddenParent" placeholder="例: INFUSION, TABLE">
+                </div>
+                <div class="form-group">
+                    <label for="sibling">Sibling Research</label>
+                    <input type="text" id="sibling" name="sibling" placeholder="例: JARLABEL, CRUCIBLE">
+                </div>
+                <div class="form-group">
+                    <label for="aspectTrigger">Required Aspects</label>
+                    <input type="text" id="aspectTrigger" name="aspectTrigger">
+                </div>
+                <div class="form-group" style="display: flex; gap: 1em; align-items: flex-end;">
+                    <div style="flex:1;">
+                        <label for="x">Position X</label>
+                        <input type="number" id="x" name="x" step="1">
+                    </div>
+                    <div style="flex:1;">
+                        <label for="y">Position Y</label>
+                        <input type="number" id="y" name="y" step="1">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="complexity">Complexity</label>
+                    <input type="number" id="complexity" name="complexity" step="1" min="1">
+                </div>
+                <div class="form-group">
+                    <label for="warp">Warp</label>
+                    <input type="number" id="warp" name="warp" min="0" step="1"
+                        placeholder="(leave blank for no change)">
+                    <div class="option-desc">Set research warp. 0: remove, 1 or more: remove & add. Leave blank for no
+                        change.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Research Options:</label>
+                    <div class="research-options">
+                        <div>
+                            <label>ROUND</label>
+                            <span class="radio-inline"><label><input type="radio" name="option-round" value="none"
+                                        checked>No Change</label></span>
+                            <span class="radio-inline"><label><input type="radio" name="option-round"
+                                        value="true">Enable</label></span>
+                            <span class="radio-inline"><label><input type="radio" name="option-round"
+                                        value="false">Disable</label></span>
+                            <div class="option-desc">Research has a round icon. For non-recipe or auto-unlocked
+                                researches.</div>
+                        </div>
+                        <div>
+                            <label>SPIKY</label>
+                            <span class="radio-inline"><label><input type="radio" name="option-spiky" value="none"
+                                        checked>No Change</label></span>
+                            <span class="radio-inline"><label><input type="radio" name="option-spiky"
+                                        value="true">Enable</label></span>
+                            <span class="radio-inline"><label><input type="radio" name="option-spiky"
+                                        value="false">Disable</label></span>
+                            <div class="option-desc">Icon has spikes. Indicates important research.</div>
+                        </div>
+                        <div>
+                            <label>STUB</label>
+                            <span class="radio-inline"><label><input type="radio" name="option-stub" value="none"
+                                        checked>No Change</label></span>
+                            <span class="radio-inline"><label><input type="radio" name="option-stub"
+                                        value="true">Enable</label></span>
+                            <span class="radio-inline"><label><input type="radio" name="option-stub"
+                                        value="false">Disable</label></span>
+                            <div class="option-desc">Cannot be researched by player. Used for auto-unlock or siblings.
+                            </div>
+                        </div>
+                        <div>
+                            <label>SECONDARY</label>
+                            <span class="radio-inline"><label><input type="radio" name="option-secondary" value="none"
+                                        checked>No Change</label></span>
+                            <span class="radio-inline"><label><input type="radio" name="option-secondary"
+                                        value="true">Enable</label></span>
+                            <span class="radio-inline"><label><input type="radio" name="option-secondary"
+                                        value="false">Disable</label></span>
+                            <div class="option-desc">Octagonal icon. Purchased with points instead of researched.</div>
+                        </div>
+                        <div>
+                            <label>VIRTUAL</label>
+                            <span class="radio-inline"><label><input type="radio" name="option-virtual" value="none"
+                                        checked>No Change</label></span>
+                            <span class="radio-inline"><label><input type="radio" name="option-virtual"
+                                        value="true">Enable</label></span>
+                            <span class="radio-inline"><label><input type="radio" name="option-virtual"
+                                        value="false">Disable</label></span>
+                            <div class="option-desc">Does not really exist. Used as parent research.</div>
+                        </div>
+                        <div>
+                            <label>AUTO-UNLOCK</label>
+                            <span class="radio-inline"><label><input type="radio" name="option-autounlock" value="none"
+                                        checked>No Change</label></span>
+                            <span class="radio-inline"><label><input type="radio" name="option-autounlock"
+                                        value="true">Enable</label></span>
+                            <span class="radio-inline"><label><input type="radio" name="option-autounlock"
+                                        value="false">Disable</label></span>
+                            <div class="option-desc">Starts out already unlocked.</div>
+                        </div>
+                        <div>
+                            <label>CONCEALED</label>
+                            <span class="radio-inline"><label><input type="radio" name="option-concealed" value="none"
+                                        checked>No Change</label></span>
+                            <span class="radio-inline"><label><input type="radio" name="option-concealed"
+                                        value="true">Enable</label></span>
+                            <span class="radio-inline"><label><input type="radio" name="option-concealed"
+                                        value="false">Disable</label></span>
+                            <div class="option-desc">Hidden until parent researches are completed. Default for most
+                                researches.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label><input type="checkbox" id="refreshRecipe" checked="false"> Refresh Research Recipe</label>
+                    <div class="option-desc">Force refresh the research recipe page (use if recipe type is unchanged).
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <section id="research-pages" style="display:none;">
+            <h2>Research Pages</h2>
+            <div id="pages-container">
+            </div>
+            <button type="button" id="add-page">Add Page</button>
+        </section>
+
+        <section>
+            <h2>Output Code</h2>
+            <button type="button" id="generateBtn">Generate Code</button>
+            <pre id="output-code"></pre>
+        </section>
+    </main>
+    <footer>
+        ThaumcraftResearchEditor &copy; 2024
+        <script src="templates.js"></script>
+        <script src="scripts.js"></script>
+    </footer>
+    <style>
+        .radio-inline {
+            display: inline-block;
+            margin-right: 1em;
+        }
+
+        .text-input {
+            height: 4em;
+            min-height: 2em;
+            max-height: 10em;
+            resize: vertical;
+            box-sizing: border-box;
+            padding: 4px 6px;
+            vertical-align: top;
+            width: 100%;
+            font-family: inherit;
+        }
+    </style>
+</body>
+
+</html>
