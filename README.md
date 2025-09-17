@@ -1,5 +1,7 @@
 # Thaumcraft Research Editor
 
+### https://chlorine0808.github.io/Thaumcraft-Research-Editor/
+
 ## EN
 
 Thaumcraft Research Editor is a browser-based tool to edit Thaumcraft 4 research data and generate zen script.
@@ -26,6 +28,7 @@ Thaumcraft Research Editor は、Thaumcraft 4 の研究データをブラウザ�
 4. タブを選択し、既存の研究を選ぶか '-- New Research --' を選択します。
 5. フォームを編集し、ページを追加したら 'Generate Code' をクリックします。
 6. 'Copy to Clipboard' で出力をコピーします。
+
 
 
 
