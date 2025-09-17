@@ -7,8 +7,7 @@ import mods.thaumcraft.Warp;
 
 {body}
 {localization}`,
-    setName: 'Research.setName("{key}", "{name}");',
-    setParents: 'Research.setParents("{key}", {parents});',
+    // Basics
     setRequiredAspects: 'Research.setAspects("{key}", "{aspects}");',
     addToResearch: 'Warp.addToResearch("{key}", {amount});',
     removeFromResearch: 'Warp.removeFromResearch("{key}");',
@@ -22,6 +21,11 @@ import mods.thaumcraft.Warp;
     setVirtual: 'Research.setVirtual("{key}", {value});',
     setAutoUnlock: 'Research.setAutoUnlock("{key}", {value});',
     setConcealed: 'Research.setConcealed("{key}", {value});',
+    // Prerequisites
+    clearPrereqs: 'Research.clearPrereqs("{key}");',
+    clearSiblings: 'Research.clearSiblings("{key}");',
+    addPrereq: 'Research.addPrereq("{key}", "{parent}", {hidden});',
+    addSibling: 'Research.addSibling("{key}", "{sibling}");',
     // Pages
     textPage: `Research.addPage("{key}", "tc.research_page.{key}.{pageIndex}");`,
     craftingPage: `Research.addCraftingPage("{key}", <{output}>);`,
@@ -29,14 +33,27 @@ import mods.thaumcraft.Warp;
     cruciblePage: `Research.addCruciblePage("{key}", <{output}>);`,
     infusionPage: `Research.addInfusionPage("{key}", <{output}>);`,
     enchantmentPage: `Research.addEnchantmentPage("{key}", {enchantmentId});`,
-    refreshResearchRecipe: 'Research.refreshResearchRecipe("{key}");',
-    addPrereq: 'Research.addPrereq("{key}", "{parent}", {hidden});',
-    addSibling: 'Research.addSibling("{key}", "{sibling}");',
-    clearPrereqs: 'Research.clearPrereqs("{key}");',
-    clearSiblings: 'Research.clearSiblings("{key}");'
+    refreshResearchRecipe: 'Research.refreshResearchRecipe("{key}");'
 };
 
 function fillTemplate(templateStr, vars) {
     return templateStr.replace(/\{(\w+)\}/g, (m, k) => vars[k] ?? '');
 }
 
+// 出力セクションのデフォルト順。必要ならこの配列を書き換えて順序を変更してください。
+window.TEMPLATE_ORDER = ['addResearch', 'move', 'aspects', 'complexity', 'warp', 'prereqs', 'siblings', 'options', 'pages', 'refresh', 'localization'];
+
+// セクションごとに、出力時にそのセクションの直前に挿入する文字列（コメントや空行など）を指定できます。
+window.TEMPLATE_SECTION_COMMENTS = {
+    'addResearch': '\n// Add Research',
+    'move': '\n// Move',
+    'aspects': '\n// Aspects',
+    'complexity': '\n// Complexity',
+    'warp': '\n// Warp',
+    'prereqs': '\n// Prerequisites',
+    'siblings': '\n// Siblings',
+    'options': '\n// Options',
+    'pages': '\n// Pages',
+    'refresh': '\n// Refresh',
+    'localization': '\n// Localization'
+};

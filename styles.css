@@ -60,20 +60,8 @@ textarea {
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 16px;
-}
-
-input[type="checkbox"] {
-    width: auto;
-    margin-right: 10px;
-}
-
-.coord-inputs {
-    display: flex;
-    gap: 10px;
-}
-
-.coord-inputs input {
-    flex: 1;
+    font-family: inherit;
+    box-sizing: border-box;
 }
 
 button {
@@ -118,8 +106,15 @@ button:disabled {
 }
 
 .text-input {
-    min-height: 100px;
+    height: 4em;
+    min-height: 2em;
+    max-height: 10em;
+    resize: vertical;
+    box-sizing: border-box;
+    padding: 4px 6px;
+    vertical-align: top;
     width: 100%;
+    font-family: inherit;
 }
 
 #output-code {
@@ -148,17 +143,23 @@ footer {
     margin: 10px 0;
 }
 
-.parent-entry {
-    display: flex;
-    gap: 10px;
-    align-items: center;
+#copy-toast {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    background: rgba(60, 30, 100, 0.95);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 1.1em;
+    z-index: 9999;
+    display: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-.parent-entry input.parent-name {
-    flex: 1;
+/* Page-specific override to ensure the text page textarea matches the above */
+#pages-container .page-entry .page-content.text-content .text-input,
+#research-pages #pages-container .page-entry .page-content.text-content .text-input {
+    height: 4em !important;
+    min-height: 2em !important;
 }
-
-.parent-entry .remove-parent-btn {
-    margin-left: auto;
-}
-
