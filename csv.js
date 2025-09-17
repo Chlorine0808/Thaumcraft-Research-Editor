@@ -53,7 +53,7 @@
         if (!fileInputEl) return;
 
         if (!fileInputEl.files || !fileInputEl.files.length) {
-            if (statusEl) statusEl.textContent = 'tc4research.csvを選択してください';
+            if (statusEl) statusEl.textContent = 'Please select tc4research.csv';
             return;
         }
 
@@ -66,7 +66,7 @@
                 const { data: rows, meta } = results;
                 const fields = meta && meta.fields ? meta.fields : [];
                 if (!fields.includes('Category') && !fields.includes('Tab')) {
-                    if (statusEl) statusEl.textContent = 'tc4research.csvを選択してください';
+                    if (statusEl) statusEl.textContent = 'Please select tc4research.csv';
                     ResearchStore.resetAll();
                     return;
                 }
@@ -84,13 +84,13 @@
                 ResearchStore.setCSVData(data);
                 ResearchStore.setTabs(tabs);
                 ResearchStore.setCurrentTab('');
-                if (statusEl) statusEl.textContent = `研究データ ${data.length}件 読込完了`;
+                if (statusEl) statusEl.textContent = `Loaded ${data.length} research records`;
                 ResearchStore.setSelectedResearchIndex(null);
                 ResearchStore.setFormState({});
                 ResearchStore.notify('csv:loaded');
             },
             error: err => {
-                if (statusEl) statusEl.textContent = 'CSV読込失敗: ' + err;
+                if (statusEl) statusEl.textContent = 'CSV load failed: ' + err;
                 ResearchStore.resetAll();
             }
         });
