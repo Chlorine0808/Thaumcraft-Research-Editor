@@ -101,7 +101,7 @@
             const yVal = (d.y !== '') ? Number(d.y) : 0;
             const complexityVal = (d.complexity !== '') ? Number(d.complexity) : 0;
             const iconVal = escapeStr((qs('research-icon') && qs('research-icon').value) || '');
-            parts.addResearch.push(`Research.addResearch("${escapeStr(key)}", "${escapeStr(d.tab)}", "${aspectsStr}", ${xVal}, ${yVal}, ${complexityVal}, "${iconVal}");`);
+            parts.addResearch.push(`Research.addResearch("${escapeStr(key)}", "${escapeStr(d.tab)}", "${aspectsStr}", ${xVal}, ${yVal}, ${complexityVal}, <${iconVal}>);`);
         }
 
         // Warp handling: remove then optionally add
